@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // layouts
-import MainLayout from "@layouts/mainLayout/MainLayout";
+import { MainLayout } from "@layouts/index";
 
 // pages
 import {
@@ -38,7 +38,7 @@ const router = createBrowserRouter(
           element: <AboutUsPage />,
         },
         {
-          path: "products/:prefix",
+          path: "categories/products/:prefix",
           element: <ProductsPage />,
           loader: async ({ params }) => {
             if (

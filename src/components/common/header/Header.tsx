@@ -8,14 +8,16 @@ const { headerContainer, headerLogo } = styles;
 const Header = () => {
   return (
     <header>
+      {/* Top Header */}
       <div className={headerContainer}>
         <h1 className={headerLogo}>
           <span>Online</span> <Badge bg="info">Store</Badge>
         </h1>
 
-        {/* basket */}
         <HeaderBasket />
       </div>
+
+      {/* Bottom Header */}
       <Navbar
         expand="lg"
         className="bg-body-tertiary"
