@@ -1,10 +1,25 @@
 .categoryImg {
   width: 180px;
   height: 180px;
-  overflow: hidden;
   border-radius: 50%;
+  overflow: hidden;
+  position: relative;
   background-color: #f2f2f2;
 }
+
+.categoryImg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* hover */
+.categoryImg:hover::after {
+  opacity: 0.2;
+}
+
 .categoryImg img {
   width: 100%;
 }

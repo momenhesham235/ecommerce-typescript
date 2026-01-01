@@ -2,6 +2,12 @@
   position: relative;
   cursor: pointer;
   align-self: flex-end;
+
+}
+.basketContainer svg {
+  fill: #0dcaf0;
+  height: 40px;
+  width: 40px;
 }
 
 .basketQuantity {
@@ -12,7 +18,7 @@
   text-align: center;
   border: 1px solid;
   position: absolute;
-  top: -16px;
+  top: -5px;
   right: -5px;
   font-size: 12px;
 }

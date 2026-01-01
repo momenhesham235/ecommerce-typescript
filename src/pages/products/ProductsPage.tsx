@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
@@ -7,14 +7,18 @@ import {
   productsCleanUp,
 } from "@store/products/productsSlice";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { GridList } from "@components/common";
 import { Product } from "@components/eCommerce";
+import { Loading } from "@components/feedback";
 
 const ProductsPage = () => {
   const { prefix } = useParams();
 
   const dispatch = useAppDispatch();
-  const { products } = useAppSelector((state) => state.products);
+  const { products, loading, error } = useAppSelector(
+    (state) => state.products
+  );
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(prefix as string));
@@ -24,23 +28,14 @@ const ProductsPage = () => {
     };
   }, [dispatch, prefix]);
 
-  const productsList =
-    products.length > 0
-      ? products.map((prod) => (
-          <Col
-            xs={6}
-            md={3}
-            className="d-flex justify-content-center mb-5 mt-2"
-            key={prod.id}
-          >
-            <Product {...prod} />
-          </Col>
-        ))
-      : "there are no categories";
-
   return (
     <Container>
-      <Row>{productsList}</Row>
+      <Loading loading={loading} error={error}>
+        <GridList
+          records={products}
+          renderItem={(cat) => <Product {...cat} />}
+        />
+      </Loading>
     </Container>
   );
 };

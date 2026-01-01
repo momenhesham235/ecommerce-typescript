@@ -11,7 +11,7 @@ const Header = () => {
       {/* Top Header */}
       <div className={headerContainer}>
         <h1 className={headerLogo}>
-          <span>Online</span> <Badge bg="info">Store</Badge>
+          <span>Online</span> <Badge bg="info">Shop</Badge>
         </h1>
 
         <HeaderBasket />

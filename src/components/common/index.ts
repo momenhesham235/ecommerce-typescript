@@ -1,4 +1,5 @@
 import Header from "@components/common/header/Header";
 import Footer from "@components/common/footer/Footer";
+import GridList from "@components/common/gridList/GridList";
 
-export { Header, Footer };
+export { Header, Footer, GridList };
