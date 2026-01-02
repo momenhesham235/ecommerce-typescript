@@ -8,7 +8,7 @@ import {
 } from "@store/products/productsSlice";
 
 import { Container } from "react-bootstrap";
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 
@@ -20,6 +20,13 @@ const ProductsPage = () => {
     (state) => state.products
   );
 
+  const cartItems = useAppSelector((state) => state.cart.items);
+
+  const productFullInfo = products.map((prod) => ({
+    ...prod,
+    quantity: cartItems[prod.id] || 0,
+  }));
+
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(prefix as string));
 
@@ -30,10 +37,13 @@ const ProductsPage = () => {
 
   return (
     <Container>
+      <Heading>
+        <span className="text-capitalize text-info-emphasis">{prefix}</span> Products
+      </Heading>
       <Loading loading={loading} error={error}>
         <GridList
-          records={products}
-          renderItem={(cat) => <Product {...cat} />}
+          records={productFullInfo}
+          renderItem={(prod) => <Product {...prod} />}
         />
       </Loading>
     </Container>

@@ -11,7 +11,7 @@ const actGetProductsByCatPrefix = createAsyncThunk<
   async (catPrefix: string, { rejectWithValue }) => {
     try {
       const response = await axios.get<TProduct[]>(
-        `http://localhost:8080/products?cat_prefix=${catPrefix}`
+        `/products?cat_prefix=${catPrefix}`
       );
       return response.data;
     } catch (error) {

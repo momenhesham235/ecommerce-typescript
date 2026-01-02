@@ -5,6 +5,7 @@ type TGridListProps<T> = {
   renderItem: (records: T) => React.ReactNode;
 };
 
+// generic constraint
 type hasId = { id?: number };
 
 const GridList = <T extends hasId>({
