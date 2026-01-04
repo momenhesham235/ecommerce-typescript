@@ -11,6 +11,7 @@ import {
   AboutUsPage,
   ProductsPage,
   CategoriesPage,
+  CartPage,
   Error,
 } from "@pages/index";
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter(
         {
           path: "categories",
           element: <CategoriesPage />,
+        },
+        {
+          path: "cart",
+          element: <CartPage />,
         },
       ],
     },

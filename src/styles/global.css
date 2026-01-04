@@ -9,3 +9,8 @@
 .notFound p {
   font-size: 50px;
 }
+
+main span {
+  text-transform: capitalize;
+  color: #0dcaf0;
+}

@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCartTotalQuantitySelector } from "@store/cart/selectors";
+import actGetProductsByItems from "@store/cart/act/actGetProductsByItems";
+import { getCartTotalQuantitySelector } from "./selectors";
 import type { TProduct } from "@utils/types/product";
+import type { TLoadingStatus } from "@utils/types/shared";
 
 interface ICartState {
-  items: { [key: number]: number }; // productId: quantity => index signature
+  items: { [key: number]: number };
   productsFullInfo: TProduct[];
+  loading: TLoadingStatus;
+  error: null | string;
 }
 
 const initialState: ICartState = {
   items: {},
   productsFullInfo: [],
+  loading: "idle",
+  error: null,
 };
 
 const cartSlice = createSlice({
@@ -17,22 +23,44 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const { productId } = action.payload;
-      if (state.items[productId]) {
-        state.items[productId]++;
+      const id = action.payload;
+      if (state.items[id]) {
+        state.items[id]++;
       } else {
-        state.items[productId] = 1;
+        state.items[id] = 1;
       }
     },
+    cartItemChangeQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      state.items[id] = quantity;
+    },
+    
+    cartItemRemove: (state, action) => {
+      delete state.items[action.payload];
+      state.productsFullInfo = state.productsFullInfo.filter(
+        (el) => el.id !== action.payload
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(actGetProductsByItems.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(actGetProductsByItems.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+      state.productsFullInfo = action.payload;
+    });
+    builder.addCase(actGetProductsByItems.rejected, (state, action) => {
+      state.loading = "failed";
+      if (action.payload && typeof action.payload === "string") {
+        state.error = action.payload;
+      }
+    });
   },
 });
 
-/**
- * Selectors for cart
- * 1- likes useMemo and useCallback hooks memorize the result of the function
- * 2- listen up cart items changes if cart items changes the selector will re-run
- */
-
-export { getCartTotalQuantitySelector };
-export const { addToCart } = cartSlice.actions;
+export { getCartTotalQuantitySelector, actGetProductsByItems };
+export const { addToCart, cartItemChangeQuantity, cartItemRemove } =
+  cartSlice.actions;
 export default cartSlice.reducer;

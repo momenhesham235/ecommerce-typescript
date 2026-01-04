@@ -2,15 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import actGetCategories from "@store/categories/act/actGetCategories";
 import type { TCategory } from "@utils/types/category";
 import type { TLoadingStatus } from "@utils/types/shared";
-
 interface ICategoriesState {
-  categories: TCategory[];
+  records: TCategory[];
   loading: TLoadingStatus;
-  error: null | string;
+  error: string | null;
 }
 
 const initialState: ICategoriesState = {
-  categories: [],
+  records: [],
   loading: "idle",
   error: null,
 };
@@ -20,20 +19,20 @@ const categoriesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(actGetCategories.pending, (state) => {
-        state.loading = "pending";
-        state.error = null;
-      })
-      .addCase(actGetCategories.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.categories = action.payload;
-      })
-      .addCase(actGetCategories.rejected, (state, action) => {
-        state.loading = "failed";
-        if (action.payload && typeof action.payload === "string")
-          state.error = action.payload;
-      });
+    builder.addCase(actGetCategories.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(actGetCategories.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+      state.records = action.payload;
+    });
+    builder.addCase(actGetCategories.rejected, (state, action) => {
+      state.loading = "failed";
+      if (action.payload && typeof action.payload === "string") {
+        state.error = action.payload;
+      }
+    });
   },
 });
 

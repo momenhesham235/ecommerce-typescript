@@ -9,23 +9,23 @@ import { Loading } from "@components/feedback";
 
 const CategoriesPage = () => {
   const dispatch = useAppDispatch();
-  const { categories, loading, error } = useAppSelector(
+  const { records, loading, error } = useAppSelector(
     (state) => state.categories
   );
 
   useEffect(() => {
-    if (!categories.length) {
+    if (!records.length) {
       dispatch(actGetCategories());
     }
-  }, [dispatch, categories]);
+  }, [dispatch, records]);
 
   return (
     <Container>
       <Heading>Categories</Heading>
       <Loading loading={loading} error={error}>
         <GridList
-          records={categories}
-          renderItem={(cat) => <Category {...cat} />}
+          records={records}
+          renderItem={(cat) => <Category key={cat.id} {...cat} />}
         />
       </Loading>
     </Container>

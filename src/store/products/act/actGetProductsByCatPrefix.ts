@@ -2,11 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { TProduct } from "@utils/types/product";
 
-const actGetProductsByCatPrefix = createAsyncThunk<
-  TProduct[],
-  string,
-  { rejectValue: string }
->(
+const actGetProductsByCatPrefix = createAsyncThunk(
   "products/getProductsByCatPrefix",
   async (catPrefix: string, { rejectWithValue }) => {
     try {

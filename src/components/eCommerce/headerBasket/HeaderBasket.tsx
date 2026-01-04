@@ -1,4 +1,5 @@
 import Logo from "@assets/svg/cart.svg?react";
+import { useNavigate } from "react-router-dom";
 
 import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
 import { useAppSelector } from "@store/hooks";
@@ -8,12 +9,13 @@ const { basketContainer, basketQuantity, pumpCartQuantity, basketCart } =
   styles;
 
 const HeaderBasket = () => {
+  const navigate = useNavigate();
   const totalQuantity = useAppSelector(getCartTotalQuantitySelector);
 
   const shouldAnimate = totalQuantity > 0;
 
   return (
-    <div className={basketContainer}>
+    <div className={basketContainer} onClick={() => navigate("/cart")}>
       <div className={basketCart}>
         <Logo title="Basket logo" />
         <div
