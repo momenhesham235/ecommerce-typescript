@@ -12,6 +12,7 @@ import {
   ProductsPage,
   CategoriesPage,
   CartPage,
+  WishlistPage,
   Error,
 } from "@pages/index";
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter(
         {
           path: "cart",
           element: <CartPage />,
+        },
+        {
+          path: "wishlist",
+          element: <WishlistPage />,
         },
       ],
     },

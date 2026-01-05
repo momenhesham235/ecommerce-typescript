@@ -2,11 +2,9 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-}
-
-.container svg {
-  width: 25px;
-  height: 25px;
+  border-right: 1px solid black;
+  padding-right: 10px;
+  margin-right: 0px;
 }
 
 .container h3 {
@@ -27,7 +25,7 @@
   text-align: center;
   border: 1px solid;
   position: absolute;
-  top: -11px;
+  top: -13px;
   right: -5px;
   font-size: 12px;
 }

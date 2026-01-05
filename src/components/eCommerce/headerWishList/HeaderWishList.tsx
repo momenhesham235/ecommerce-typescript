@@ -1,22 +1,23 @@
 import { useNavigate } from "react-router-dom";
 
-import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
 import { useAppSelector } from "@store/hooks";
 
-import { Logo } from "@assets/index";
+import { WishList } from "@assets/index";
 import styles from "./styles.module.css";
 const { container, totalNum, pumpAnimate, iconWrapper } = styles;
 
-const HeaderBasket = () => {
+const HeaderWishList = () => {
   const navigate = useNavigate();
-  const totalQuantity = useAppSelector(getCartTotalQuantitySelector);
+  const totalQuantity = useAppSelector(
+    (state) => state.wishlist.itemsId.length
+  );
 
   const shouldAnimate = totalQuantity > 0;
 
   return (
-    <div className={container} onClick={() => navigate("/cart")}>
+    <div className={container} onClick={() => navigate("/wishlist")}>
       <div className={iconWrapper}>
-        <Logo title="Basket logo" />
+        <WishList title="Wishlist logo" />
         {totalQuantity > 0 && (
           <div
             key={totalQuantity}
@@ -26,9 +27,9 @@ const HeaderBasket = () => {
           </div>
         )}
       </div>
-      <h3>Cart</h3>
+      <h3>Wishlist</h3>
     </div>
   );
 };
 
-export default HeaderBasket;
+export default HeaderWishList;

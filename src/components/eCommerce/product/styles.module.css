@@ -1,8 +1,9 @@
 .product {
-  width: 120px;
+  width: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .productImg {
@@ -12,6 +13,8 @@
 }
 .productImg img {
   height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .product h2 {
@@ -31,4 +34,26 @@
 .maximumNotice {
   font-size: 12px;
   margin-bottom: 7px;
+}
+
+.wishList {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+  width: 20px;
+  height: 28px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.wishList svg:hover {
+  height: 20px;
+  width: 20px;
+  transform: scale(0.9);
 }

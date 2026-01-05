@@ -21,3 +21,9 @@
   display: block;
   margin-right: 5px;
 }
+
+.headerIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
