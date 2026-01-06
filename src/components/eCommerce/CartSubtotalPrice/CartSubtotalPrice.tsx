@@ -1,4 +1,4 @@
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 import styles from "./styles.module.css";
 
 type TCartSubtotalProps = {

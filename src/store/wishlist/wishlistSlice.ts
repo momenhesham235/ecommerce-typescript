@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { TProduct, TLoadingStatus } from "@utils/index";
+import { type TProduct, type TLoadingStatus, isString } from "@utils";
 
 import actLikeToggle from "@store/wishlist/act/actLikeToggle";
 import actGetWishlist from "@store/wishlist/act/actGetWishlist";
@@ -42,9 +42,7 @@ const wishlistSlice = createSlice({
       }
     });
     builder.addCase(actLikeToggle.rejected, (state, action) => {
-      if (action.payload && typeof action.payload === "string") {
-        state.error = action.payload;
-      }
+      if (isString(action.payload)) state.error = action.payload;
     });
 
     // get wishlist
@@ -58,9 +56,7 @@ const wishlistSlice = createSlice({
     });
     builder.addCase(actGetWishlist.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
-        state.error = action.payload;
-      }
+      if (isString(action.payload)) state.error = action.payload;
     });
   },
 });

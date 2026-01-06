@@ -1,6 +1,6 @@
 import CartItem from "@components/eCommerce/cartItem/CartItem";
 
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 
 type TCartItemListProps = {
   products: TProduct[];

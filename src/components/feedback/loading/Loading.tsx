@@ -1,4 +1,4 @@
-import type { TLoadingStatus } from "@utils/types/shared";
+import type { TLoadingStatus } from "@utils";
 
 interface ILoadingProps {
   loading: TLoadingStatus;

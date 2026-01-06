@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAppDispatch } from "@store/hooks";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 
 /**
  * @description useProduct

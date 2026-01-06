@@ -6,6 +6,8 @@ import type { TProduct } from "@utils/types/product";
 import type { TCategory } from "@utils/types/category";
 import type { TLoadingStatus } from "@utils/types/shared";
 
-export type { TLoadingStatus, TProduct, TCategory };
+// guards
+import { isString } from "@utils/types/guards";
 
-export { axiosErrorHandler };
+export { axiosErrorHandler, isString };
+export type { TLoadingStatus, TProduct, TCategory };

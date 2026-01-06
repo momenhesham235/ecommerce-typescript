@@ -1,21 +1,22 @@
 import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
-const { container, totalNum, pumpAnimate, iconWrapper } = styles;
 
-type THeaderCounterProps = {
+type HeaderCounterProps = {
   totalQuantity: number;
   svgIcon: React.ReactNode;
   title: string;
   to: string;
 };
 
+const { container, totalNum, pumpAnimate, iconWrapper } = styles;
+
 const HeaderCounter = ({
   totalQuantity,
   svgIcon,
   title,
   to,
-}: THeaderCounterProps) => {
+}: HeaderCounterProps) => {
   const navigate = useNavigate();
 
   return (

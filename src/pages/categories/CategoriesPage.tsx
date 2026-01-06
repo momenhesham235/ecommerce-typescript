@@ -5,7 +5,7 @@ import { Loading } from "@components/feedback";
 import { Category } from "@components/eCommerce";
 
 import { Container } from "react-bootstrap";
-import type { TCategory } from "@utils/types/category";
+import type { TCategory } from "@utils";
 
 const CategoriesPage = () => {
   const { records, loading, error } = useCategoriesPage();

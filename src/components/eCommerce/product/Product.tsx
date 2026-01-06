@@ -7,7 +7,7 @@ import { Button, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishList } = styles;
 
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 
 const Product = ({
   id,

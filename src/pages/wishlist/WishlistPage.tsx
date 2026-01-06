@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetWishlist, wishlistCleanUp } from "@store/wishlist/wishlistSlice";
 
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";

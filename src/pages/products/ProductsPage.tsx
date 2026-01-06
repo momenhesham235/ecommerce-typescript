@@ -3,7 +3,7 @@ import useProductsPage from "./useProductsPage";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-import type { TProduct } from "@utils/types/product";
+import type { TProduct } from "@utils";
 
 const Products = () => {
   const { productsFullInfo, loading, error, params } = useProductsPage();

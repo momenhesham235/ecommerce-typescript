@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { axiosErrorHandler } from "@utils";
-import type { TProduct } from "@utils/index";
+import { axiosErrorHandler, type TProduct } from "@utils";
 
 type TResponse = TProduct[];
 
 const actGetWishlist = createAsyncThunk(
   "wishlist/getWishlist",
-  async (_, { rejectWithValue, fulfillWithValue }) => {
+  async (_, { rejectWithValue, fulfillWithValue, signal }) => {
     try {
       const response = await axios.get<{ productId: number }[]>(
-        `/wishlist?userId=1`
+        `/wishlist?userId=1`,
+        { signal }
       );
 
       if (!response.data.length) {

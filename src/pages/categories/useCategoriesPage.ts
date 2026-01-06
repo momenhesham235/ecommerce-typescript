@@ -12,9 +12,10 @@ const useCategoriesPage = () => {
   );
 
   useEffect(() => {
-    dispatch(actGetCategories());
+    const promise = dispatch(actGetCategories());
 
     return () => {
+      promise.abort();
       dispatch(categoriesCleanUp());
     };
   }, [dispatch]);
