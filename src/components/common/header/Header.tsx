@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import HeaderLeftBar from "./headerLeftBar/HeaderLeftBar";
+import HeaderLeft from "@components/common/header/headerLeft/HeaderLeft";
 
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./styles.module.css";
@@ -13,7 +13,7 @@ const Header = () => {
           <span>Online</span> <Badge bg="info">Shop</Badge>
         </h1>
 
-        <HeaderLeftBar />
+        <HeaderLeft />
       </div>
 
       {/* Bottom Header */}
