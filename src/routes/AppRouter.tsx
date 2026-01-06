@@ -1,47 +1,84 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
 // layouts
-import { MainLayout } from "@layouts/index";
+const MainLayout = lazy(() => import("@layouts/mainLayout/MainLayout"));
 
-// pages
-import {
-  HomePage,
-  LoginPage,
-  RegisterPage,
-  AboutUsPage,
-  ProductsPage,
-  CategoriesPage,
-  CartPage,
-  WishlistPage,
-  Error,
-} from "@pages/index";
+// lazy pages
+const HomePage = lazy(() => import("@pages/home/HomePage"));
+const LoginPage = lazy(() => import("@pages/login/LoginPage"));
+const RegisterPage = lazy(() => import("@pages/register/RegisterPage"));
+const AboutUsPage = lazy(() => import("@pages/aboutUs/AboutUsPage"));
+const CategoriesPage = lazy(() => import("@pages/categories/CategoriesPage"));
+const ProductsPage = lazy(() => import("@pages/products/ProductsPage"));
+const CartPage = lazy(() => import("@pages/cart/CartPage"));
+const WishlistPage = lazy(() => import("@pages/wishlist/WishlistPage"));
+const ErrorPage = lazy(() => import("@pages/errorBoundary/ErrorBoundary"));
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <MainLayout />,
-      errorElement: <Error />,
+      element: (
+        <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
+          <MainLayout />
+        </Suspense>
+      ),
+      errorElement: (
+        <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
+          <ErrorPage />
+        </Suspense>
+      ),
       children: [
         {
           index: true,
-          element: <HomePage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <HomePage />
+            </Suspense>
+          ),
         },
         {
           path: "login",
-          element: <LoginPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <LoginPage />
+            </Suspense>
+          ),
         },
         {
           path: "register",
-          element: <RegisterPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <RegisterPage />
+            </Suspense>
+          ),
         },
         {
           path: "about-us",
-          element: <AboutUsPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <AboutUsPage />
+            </Suspense>
+          ),
         },
         {
           path: "categories/products/:prefix",
-          element: <ProductsPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <ProductsPage />
+            </Suspense>
+          ),
           loader: async ({ params }) => {
             if (
               typeof params.prefix !== "string" ||
@@ -57,15 +94,33 @@ const router = createBrowserRouter(
         },
         {
           path: "categories",
-          element: <CategoriesPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <CategoriesPage />
+            </Suspense>
+          ),
         },
         {
           path: "cart",
-          element: <CartPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <CartPage />
+            </Suspense>
+          ),
         },
         {
           path: "wishlist",
-          element: <WishlistPage />,
+          element: (
+            <Suspense
+              fallback={<div className="text-center mt-5">Loading...</div>}
+            >
+              <WishlistPage />
+            </Suspense>
+          ),
         },
       ],
     },
@@ -75,8 +130,6 @@ const router = createBrowserRouter(
   }
 );
 
-const AppRouter = () => {
-  return <RouterProvider router={router} />;
-};
+const AppRouter = () => <RouterProvider router={router} />;
 
 export default AppRouter;

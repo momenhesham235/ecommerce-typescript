@@ -1,10 +1,8 @@
-import { useState, memo } from "react";
+import { memo } from "react";
 
-import { useAppDispatch } from "@store/hooks";
-import { actLikeToggle } from "@store/wishlist/wishlistSlice";
-import { addToCart } from "@store/cart/cartSlice";
+import useProduct from "./hooks/useProduct";
+import { LikeFillIcon, LikeIcon } from "@assets";
 
-import { LikeFillIcon, LikeIcon } from "@assets/index";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishList } = styles;
@@ -20,34 +18,19 @@ const Product = ({
   quantity,
   isLiked,
 }: TProduct) => {
-  console.log(`render products ${id}`);
-
-  const dispatch = useAppDispatch();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAddingWishlist, setIsAddingWishlist] = useState(false);
-
-  const currentRemainingQuantity = max - (quantity ?? 0);
-  const quantityReachedToMax = currentRemainingQuantity <= 0;
-
-  const handleAddToCart = () => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-    dispatch(addToCart(id));
-
-    setTimeout(() => setIsLoading(false), 300);
-  };
-
-  const handelLikeToggle = () => {
-    if (!isAddingWishlist) {
-      setIsAddingWishlist(true);
-      dispatch(actLikeToggle(id))
-        .unwrap()
-        .then(() => setIsAddingWishlist(false))
-        .catch(() => setIsAddingWishlist(false));
-    }
-  };
+  // Logic & Hooks
+  const {
+    isLoading,
+    isAddingWishlist,
+    quantityReachedToMax,
+    currentRemainingQuantity,
+    handleAddToCart,
+    handelLikeToggle,
+  } = useProduct({
+    id,
+    max,
+    quantity,
+  } as TProduct);
 
   return (
     <div className={product}>

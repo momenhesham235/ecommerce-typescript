@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import HeaderLeftBar from "@components/common/header/HeaderLeftBar/HeaderLeftBar";
+import HeaderLeftBar from "@components/common/header/headerLeftBar/HeaderLeftBar";
 
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-
 import styles from "./styles.module.css";
 const { headerContainer, headerLogo } = styles;
 const Header = () => {

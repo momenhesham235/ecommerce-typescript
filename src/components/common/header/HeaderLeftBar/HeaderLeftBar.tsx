@@ -1,9 +1,9 @@
 import { useAppSelector } from "@store/hooks";
 import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
-import HeaderCounter from "@components/common/header/HeaderCounter/HeaderCounter";
-import { CartIcon, WishlistIcon } from "@assets/index";
-import styles from "./styles.module.css";
+import HeaderCounter from "@components/common/header/headerCounter/HeaderCounter";
+import { CartIcon, WishlistIcon } from "@assets";
 
+import styles from "./styles.module.css";
 const { headerLeftBar } = styles;
 
 const HeaderLeftBar = () => {

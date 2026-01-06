@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { TProduct } from "@utils/types/product";
-import type { TLoadingStatus } from "@utils/types/shared";
+import type { TProduct, TLoadingStatus } from "@utils/index";
 
 import actLikeToggle from "@store/wishlist/act/actLikeToggle";
 import actGetWishlist from "@store/wishlist/act/actGetWishlist";
