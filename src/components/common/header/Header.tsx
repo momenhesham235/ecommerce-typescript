@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { HeaderBasket, HeaderWishList } from "@components/eCommerce";
+import HeaderLeftBar from "@components/common/header/HeaderLeftBar/HeaderLeftBar";
 
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 
 import styles from "./styles.module.css";
-const { headerContainer, headerLogo, headerIcons } = styles;
+const { headerContainer, headerLogo } = styles;
 const Header = () => {
   return (
     <header>
@@ -14,10 +14,7 @@ const Header = () => {
           <span>Online</span> <Badge bg="info">Shop</Badge>
         </h1>
 
-        <div className={headerIcons}>
-          <HeaderWishList />
-          <HeaderBasket />
-        </div>
+        <HeaderLeftBar />
       </div>
 
       {/* Bottom Header */}

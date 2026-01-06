@@ -33,9 +33,7 @@ const Products = () => {
 
   return (
     <>
-      <Heading>
-        <span> {params.prefix} </span> Products
-      </Heading>
+      <Heading title={`${params.prefix} products`} />
       <Loading loading={loading} error={error}>
         <GridList<TProduct>
           records={productsFullInfo}

@@ -5,7 +5,7 @@ import {
   actGetProductsByItems,
   cartItemChangeQuantity,
   cartItemRemove,
-  clearCart,
+  CartsCleanUp,
 } from "@store/cart/cartSlice";
 import { Heading } from "@components/common";
 import { Loading } from "@components/feedback";
@@ -22,7 +22,7 @@ const Cart = () => {
     dispatch(actGetProductsByItems());
 
     return () => {
-      dispatch(clearCart());
+      dispatch(CartsCleanUp());
     };
   }, [dispatch]);
 
@@ -47,9 +47,7 @@ const Cart = () => {
 
   return (
     <>
-      <Heading>
-        <span>Your</span> Cart
-      </Heading>
+      <Heading title="Your Cart" />
       <Loading loading={loading} error={error}>
         {products.length ? (
           <>

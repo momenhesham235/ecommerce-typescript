@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actGetWishlist, clearWishlist } from "@store/wishlist/wishlistSlice";
+import { actGetWishlist, wishlistCleanUp } from "@store/wishlist/wishlistSlice";
 
 import type { TProduct } from "@utils/types/product";
 
@@ -22,11 +22,9 @@ const WishlistPage = () => {
     dispatch(actGetWishlist());
 
     return () => {
-      dispatch(clearWishlist());
+      dispatch(wishlistCleanUp());
     };
   }, [dispatch]);
-
-  console.log(productsFullInfo);
 
   const products = productsFullInfo.map((el) => ({
     ...el,
@@ -35,9 +33,7 @@ const WishlistPage = () => {
   }));
   return (
     <>
-      <Heading>
-        <span>Your</span> Wishlist
-      </Heading>
+      <Heading title="Your Wishlist" />
       <Loading loading={loading} error={error}>
         <GridList<TProduct>
           records={products}

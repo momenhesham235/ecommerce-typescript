@@ -4,7 +4,7 @@ import { useAppDispatch } from "@store/hooks";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
 
-import { Like, LikeFill } from "@assets/index";
+import { LikeFillIcon, LikeIcon } from "@assets/index";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishList } = styles;
@@ -20,6 +20,8 @@ const Product = ({
   quantity,
   isLiked,
 }: TProduct) => {
+  console.log(`render products ${id}`);
+
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -53,9 +55,9 @@ const Product = ({
         {isAddingWishlist ? (
           <Spinner animation="border" size="sm" variant="primary" />
         ) : isLiked ? (
-          <LikeFill />
+          <LikeFillIcon />
         ) : (
-          <Like />
+          <LikeIcon />
         )}
       </div>
 
