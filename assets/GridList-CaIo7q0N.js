@@ -1,0 +1,1 @@
+import{j as t,o as a}from"./index-D_K4arVa.js";import{a as n,R as r}from"./CartItem-ikquKn4o.js";const l=({records:s,renderItem:i,emptyMessage:m})=>{const o=s.length>0?s.map(e=>t.jsx(n,{xs:6,md:3,className:"d-flex justify-content-center mb-5 mt-2",children:i(e)},e.id)):t.jsx(a,{type:"empty",message:m});return t.jsx(r,{children:o})};export{l as G};
