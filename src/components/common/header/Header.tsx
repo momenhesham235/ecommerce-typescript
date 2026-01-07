@@ -4,6 +4,8 @@ import HeaderLeft from "@components/common/header/headerLeft/HeaderLeft";
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { headerContainer, headerLogo } = styles;
+
+import { ROUTES } from "@utils";
 const Header = () => {
   return (
     <header>
@@ -27,21 +29,21 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={NavLink} to="/">
+              <Nav.Link as={NavLink} to={ROUTES.HOME}>
                 Home
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/about-us">
+              <Nav.Link as={NavLink} to={ROUTES.ABOUT}>
                 About
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/categories">
+              <Nav.Link as={NavLink} to={ROUTES.CATEGORIES}>
                 Categories
               </Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link as={NavLink} to="/login">
+              <Nav.Link as={NavLink} to={ROUTES.LOGIN}>
                 Login
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/register">
+              <Nav.Link as={NavLink} to={ROUTES.REGISTER}>
                 Register
               </Nav.Link>
             </Nav>

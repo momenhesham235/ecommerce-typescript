@@ -6,14 +6,15 @@ import { Loading } from "@components/feedback";
 import type { TProduct } from "@utils";
 
 const Products = () => {
-  const { productsFullInfo, loading, error, params } = useProductsPage();
+  const { productsFullInfo, loading, error, prefix } = useProductsPage();
   return (
     <>
-      <Heading title={`${params.prefix} products`} />
-      <Loading loading={loading} error={error}>
+      <Heading title={`${prefix} products`} />
+      <Loading loading={loading} error={error} type="product">
         <GridList<TProduct>
           records={productsFullInfo}
           renderItem={(record) => <Product {...record} />}
+          emptyMessage="Your product list is empty"
         />
       </Loading>
     </>

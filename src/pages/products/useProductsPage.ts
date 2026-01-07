@@ -4,10 +4,11 @@ import {
   productsCleanUp,
 } from "@store/products/productsSlice";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 const useProductsPage = () => {
-  const params = useParams();
+  const prefix = useLoaderData() as string;
+
   const dispatch = useAppDispatch();
   const { records, loading, error } = useAppSelector((state) => state.products);
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -20,17 +21,15 @@ const useProductsPage = () => {
   }));
 
   useEffect(() => {
-    const promise = dispatch(
-      actGetProductsByCatPrefix(params.prefix as string)
-    );
+    const promise = dispatch(actGetProductsByCatPrefix(prefix));
 
     return () => {
       promise.abort();
       dispatch(productsCleanUp());
     };
-  }, [dispatch, params]);
+  }, [dispatch, prefix]);
 
-  return { productsFullInfo, loading, error, params };
+  return { productsFullInfo, loading, error, prefix };
 };
 
 export default useProductsPage;

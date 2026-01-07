@@ -13,113 +13,94 @@ const CategoriesPage = lazy(() => import("@pages/categories/CategoriesPage"));
 const ProductsPage = lazy(() => import("@pages/products/ProductsPage"));
 const CartPage = lazy(() => import("@pages/cart/CartPage"));
 const WishlistPage = lazy(() => import("@pages/wishlist/WishlistPage"));
-const ErrorPage = lazy(() => import("@pages/errorBoundary/ErrorBoundary"));
+import ErrorPage from "@pages/errorBoundary/ErrorBoundary";
+
+// components
+import { LottieHandler, PageSuspenseFallback } from "@components/feedback";
+
+import { ROUTES } from "@utils";
+import productsPrefixGuard from "./loaders/productsPrefixGuard";
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: ROUTES.HOME,
       element: (
-        <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
+        <Suspense
+          fallback={
+            <div style={{ marginTop: "10%" }}>
+              <LottieHandler type="loading" message="Loading please wait..." />
+            </div>
+          }
+        >
           <MainLayout />
         </Suspense>
       ),
-      errorElement: (
-        <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
-          <ErrorPage />
-        </Suspense>
-      ),
+      errorElement: <ErrorPage />,
       children: [
         {
           index: true,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <HomePage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "login",
+          path: ROUTES.LOGIN,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <LoginPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "register",
+          path: ROUTES.REGISTER,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <RegisterPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "about-us",
+          path: ROUTES.ABOUT,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <AboutUsPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "categories/products/:prefix",
+          path: ROUTES.PRODUCTS,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <ProductsPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
-          loader: async ({ params }) => {
-            if (
-              typeof params.prefix !== "string" ||
-              !/^[a-z]+$/i.test(params.prefix)
-            ) {
-              throw new Response("Bad Request", {
-                statusText: "Category not found",
-                status: 400,
-              });
-            }
-            return true;
-          },
+          loader: productsPrefixGuard,
         },
         {
-          path: "categories",
+          path: ROUTES.CATEGORIES,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <CategoriesPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "cart",
+          path: ROUTES.CART,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <CartPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
         {
-          path: "wishlist",
+          path: ROUTES.WISHLIST,
           element: (
-            <Suspense
-              fallback={<div className="text-center mt-5">Loading...</div>}
-            >
+            <PageSuspenseFallback>
               <WishlistPage />
-            </Suspense>
+            </PageSuspenseFallback>
           ),
         },
       ],

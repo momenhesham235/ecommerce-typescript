@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import useCartPage from "./useCartPage";
 
 import { Heading } from "@components/common";
-import { Loading } from "@components/feedback";
+import { Loading, LottieHandler } from "@components/feedback";
 import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 import { Button } from "react-bootstrap";
+
+import { ROUTES } from "@utils";
 
 const Cart = () => {
   const { products, loading, error, changeQuantityHandler, removeItemHandler } =
@@ -13,7 +15,7 @@ const Cart = () => {
   return (
     <>
       <Heading title="Your Cart" />
-      <Loading loading={loading} error={error}>
+      <Loading loading={loading} error={error} type="cart">
         {products.length ? (
           <>
             <CartItemList
@@ -24,17 +26,14 @@ const Cart = () => {
             <CartSubtotalPrice products={products} />
           </>
         ) : (
-          <div>
-            <p className="text-center">
-              Start adding some products to your cart
-            </p>
-            <p className="text-center">👇</p>
-            <Button variant="link" className="d-block mx-auto">
-              <Link to="/categories" className="">
+          <section className="d-flex flex-column align-items-center">
+            <LottieHandler type="empty" message="Your cart is empty" />
+            <Link to={ROUTES.CATEGORIES}>
+              <Button variant="primary" className="my-2">
                 Shop Now
-              </Link>
-            </Button>
-          </div>
+              </Button>
+            </Link>
+          </section>
         )}
       </Loading>
     </>

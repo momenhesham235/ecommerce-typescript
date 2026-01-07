@@ -13,10 +13,11 @@ const CategoriesPage = () => {
   return (
     <Container>
       <Heading title="Categories" />
-      <Loading loading={loading} error={error}>
+      <Loading loading={loading} error={error} type="category">
         <GridList<TCategory>
           records={records}
           renderItem={(cat) => <Category key={cat.id} {...cat} />}
+          emptyMessage="Your category list is empty"
         />
       </Loading>
     </Container>

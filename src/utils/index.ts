@@ -9,5 +9,8 @@ import type { TLoadingStatus } from "@utils/types/shared";
 // guards
 import { isString } from "@utils/types/guards";
 
-export { axiosErrorHandler, isString };
+// Routes
+import ROUTES from "@utils/constants/routesPath";
+
+export { axiosErrorHandler, isString, ROUTES };
 export type { TLoadingStatus, TProduct, TCategory };
