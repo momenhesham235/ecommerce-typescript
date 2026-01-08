@@ -4,7 +4,7 @@ import { getCartTotalQuantitySelector } from "./selectors";
 import { type TProduct, type TLoadingStatus, isString } from "@utils";
 
 interface ICartState {
-  items: { [key: number]: number };
+  items: { [key: number]: number }; // productId: quantity => index signature 
   productsFullInfo: TProduct[];
   loading: TLoadingStatus;
   error: null | string;

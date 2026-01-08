@@ -26,14 +26,17 @@ const Cart = () => {
             <CartSubtotalPrice products={products} />
           </>
         ) : (
-          <section className="d-flex flex-column align-items-center">
+          <>
             <LottieHandler type="empty" message="Your cart is empty" />
-            <Link to={ROUTES.CATEGORIES}>
+            <Link
+              to={ROUTES.CATEGORIES}
+              className="d-flex justify-content-center"
+            >
               <Button variant="primary" className="my-2">
                 Shop Now
               </Button>
             </Link>
-          </section>
+          </>
         )}
       </Loading>
     </>
