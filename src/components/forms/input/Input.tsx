@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import type { Path, FieldValues, UseFormRegister } from "react-hook-form";
 
-type TInputProps<TFieldValue extends FieldValues> = {
+type TInputProps<TFieldValue extends FieldValues> = Readonly<{
   label: string;
   name: Path<TFieldValue>;
   type?: string;
@@ -12,7 +12,7 @@ type TInputProps<TFieldValue extends FieldValues> = {
   formText?: string;
   success?: string;
   disabled?: boolean;
-};
+}>;
 
 const Input = <TFieldValue extends FieldValues>({
   label,

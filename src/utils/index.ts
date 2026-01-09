@@ -5,6 +5,14 @@ import axiosErrorHandler from "@utils/func/axiosErrorHandler";
 import type { TProduct } from "@utils/types/product";
 import type { TCategory } from "@utils/types/category";
 import type { TLoadingStatus } from "@utils/types/shared";
+import type {
+  ICartState,
+  IWishlistState,
+} from "@utils/types/reduxType/IProductsBaseState";
+import type {
+  TCategoriesState,
+  TProductsState,
+} from "@utils/types/reduxType/IEntityState";
 import { isString } from "@utils/types/guards";
 
 // constants
@@ -16,6 +24,15 @@ import type { TRegisterType } from "@utils/validation/registerSchema";
 import { loginSchema } from "@utils/validation/loginSchema";
 import type { TLoginType } from "@utils/validation/loginSchema";
 
+export type {
+  TProduct,
+  TCategory,
+  TLoadingStatus,
+  ICartState,
+  IWishlistState,
+  TCategoriesState,
+  TProductsState,
+  TRegisterType,
+  TLoginType,
+};
 export { axiosErrorHandler, isString, ROUTES, registerSchema, loginSchema };
-
-export type { TLoadingStatus, TProduct, TCategory, TRegisterType, TLoginType };

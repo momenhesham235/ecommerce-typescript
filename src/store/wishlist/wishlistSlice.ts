@@ -1,15 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type TProduct, type TLoadingStatus, isString } from "@utils";
+import { isString, type IWishlistState } from "@utils";
 
 import actLikeToggle from "@store/wishlist/act/actLikeToggle";
 import actGetWishlist from "@store/wishlist/act/actGetWishlist";
-
-interface IWishlistState {
-  itemsId: number[];
-  productsFullInfo: TProduct[];
-  loading: TLoadingStatus;
-  error: null | string;
-}
 
 const initialState: IWishlistState = {
   itemsId: [],
@@ -32,17 +25,25 @@ const wishlistSlice = createSlice({
       state.error = null;
     });
     builder.addCase(actLikeToggle.fulfilled, (state, action) => {
-      if (action.payload.type === "add") {
-        state.itemsId.push(action.payload.id);
+      const { id, type } = action.payload;
+
+      if (type === "add" && !state.itemsId.includes(id)) {
+        state.itemsId.push(id);
       } else {
-        state.itemsId = state.itemsId.filter((id) => id !== action.payload.id);
+        // remove from itemsId
+        state.itemsId = state.itemsId.filter((el) => el !== id);
+
+        // remove from productsFullInfo
         state.productsFullInfo = state.productsFullInfo.filter(
-          (el) => el.id !== action.payload.id
+          (el) => el.id !== id
         );
       }
     });
+
     builder.addCase(actLikeToggle.rejected, (state, action) => {
-      if (isString(action.payload)) state.error = action.payload;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
     });
 
     // get wishlist

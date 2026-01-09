@@ -10,6 +10,8 @@ import type { TCategory } from "@utils";
 const CategoriesPage = () => {
   const { records, loading, error } = useCategoriesPage();
 
+ 
+
   return (
     <Container>
       <Heading title="Categories" />

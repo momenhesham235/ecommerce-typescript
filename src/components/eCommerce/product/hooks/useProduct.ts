@@ -37,6 +37,7 @@ const useProduct = ({ id, max, quantity }: TProduct) => {
         .catch(() => setIsAddingWishlist(false));
     }
   };
+
   return {
     isLoading,
     isAddingWishlist,
