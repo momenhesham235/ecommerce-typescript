@@ -1,0 +1,1 @@
+import{j as t,w as o}from"./index-DwKbRvpM.js";import{C as r,R as a}from"./Heading-C5kbgIhg.js";const l=({records:s,renderItem:i,emptyMessage:m})=>{const n=s.length>0?s.map(e=>t.jsx(r,{xs:6,md:3,className:"d-flex justify-content-center mb-5 mt-2",children:i(e)},e.id)):t.jsx(o,{type:"empty",message:m});return t.jsx(a,{children:n})};export{l as G};
