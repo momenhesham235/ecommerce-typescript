@@ -1,44 +1,20 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actAuthLogin, resetAuthState } from "@store/auth/authSlice";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ROUTES, loginSchema, type TLoginType } from "@utils";
+import useLogin from "./useLogin";
 
 import { Heading } from "@components/common";
 import { Input } from "@components/forms";
 import { Button, Form, Row, Col, Alert, Spinner } from "react-bootstrap";
 
 const LoginPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.auth);
-
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<TLoginType>({
-    mode: "onBlur",
-    shouldFocusError: true,
-    resolver: zodResolver(loginSchema),
-  });
-
-  const submitHandler: SubmitHandler<TLoginType> = (data) => {
-    setSearchParams({});
-    dispatch(actAuthLogin(data))
-      .unwrap()
-      .then(() => navigate(ROUTES.HOME));
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetAuthState());
-    };
-  }, [dispatch]);
+    formErrors,
+    isValid,
+    loading,
+    error,
+    submitHandler,
+    searchParams,
+  } = useLogin();
 
   return (
     <section>
@@ -46,12 +22,12 @@ const LoginPage = () => {
 
       <Row className="my-2">
         <Col md={{ span: 6, offset: 3 }}>
-          {searchParams.get("msg") && (
+          {searchParams.get("msg") === "login_required" && (
             <Alert variant="success">
               You need to be login to view this content, please login
             </Alert>
           )}
-          {searchParams.get("msg") && (
+          {searchParams.get("msg") === "registration_successful" && (
             <Alert variant="success">
               You account has been created, please login{" "}
             </Alert>
@@ -61,7 +37,7 @@ const LoginPage = () => {
               label="Email"
               name="email"
               register={register}
-              error={errors.email?.message || ""}
+              error={formErrors.email?.message || ""}
               autoFocus
             />
 
@@ -70,7 +46,7 @@ const LoginPage = () => {
               name="password"
               type="password"
               register={register}
-              error={errors.password?.message || ""}
+              error={formErrors.password?.message || ""}
             />
 
             <Button

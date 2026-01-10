@@ -4,14 +4,11 @@ import { useAppDispatch } from "@store/hooks";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
 import type { TProduct } from "@utils";
+import { useAuthAction } from "@hooks/useAuthAction";
 
-/**
- * @description useProduct
- * @param {TProduct} { id, max, quantity }
- * @returns isLoading, isAddingWishlist, quantityReachedToMax, currentRemainingQuantity
- */
 const useProduct = ({ id, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
+  const { requireAuth } = useAuthAction();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isAddingWishlist, setIsAddingWishlist] = useState(false);
@@ -29,13 +26,15 @@ const useProduct = ({ id, max, quantity }: TProduct) => {
   };
 
   const handelLikeToggle = () => {
-    if (!isAddingWishlist) {
-      setIsAddingWishlist(true);
-      dispatch(actLikeToggle(id))
-        .unwrap()
-        .then(() => setIsAddingWishlist(false))
-        .catch(() => setIsAddingWishlist(false));
-    }
+    requireAuth(() => {
+      if (!isAddingWishlist) {
+        setIsAddingWishlist(true);
+        dispatch(actLikeToggle(id))
+          .unwrap()
+          .then(() => setIsAddingWishlist(false))
+          .catch(() => setIsAddingWishlist(false));
+      }
+    });
   };
 
   return {

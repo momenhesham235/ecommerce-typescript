@@ -19,10 +19,10 @@ import ErrorPage from "@pages/errorBoundary/ErrorBoundary";
 // components
 import { LottieHandler, PageSuspenseFallback } from "@components/feedback";
 
-import { ROUTES } from "@utils";
 import productsPrefixGuard from "@routes/loaders/productsPrefixGuard";
-import ProtectedRoute from "@routes/ProtectedRoute";
-import GuestRoute from "@routes/GuestRoute";
+import { ProtectedRoute } from "@components/auth";
+import { GuestRoute } from "@components/auth";
+import { ROUTES } from "@utils";
 
 const router = createBrowserRouter(
   [
@@ -136,7 +136,6 @@ const router = createBrowserRouter(
     basename: "/ecommerce-typescript/",
   }
 );
-
 
 const AppRouter = () => <RouterProvider router={router} />;
 

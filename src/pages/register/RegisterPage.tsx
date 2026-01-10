@@ -1,70 +1,21 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { actAuthRegister, resetAuthState } from "@store/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
+import useRegister from "./useRegister";
 
 import { Heading } from "@components/common";
 import { Input } from "@components/forms";
 import { Button, Form, Row, Col, Spinner, Alert } from "react-bootstrap";
-import { registerSchema, ROUTES, type TRegisterType } from "@utils";
 
 const RegisterPage = () => {
-  const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-
-  const { loading, error } = useAppSelector((state) => state.auth);
-
-  const {
-    checkEmailAvailability,
-    emailAvailabilityStatus,
-    prevEnteredEmail,
-    resetCheckEmailAvailability,
-  } = useCheckEmailAvailability();
-
   const {
     register,
     handleSubmit,
-    trigger,
-    getFieldState,
-    formState: { errors, isValid },
-  } = useForm<TRegisterType>({
-    mode: "onBlur",
-    shouldFocusError: true,
-    resolver: zodResolver(registerSchema),
-  });
-
-  const submitHandler: SubmitHandler<TRegisterType> = async (data) => {
-    const { firstName, lastName, email, password } = data;
-    dispatch(actAuthRegister({ firstName, lastName, email, password }))
-      .unwrap()
-      .then(() => navigate(`${ROUTES.LOGIN}?msg=registration_successful`));
-  };
-
-  const emailOnBlurHandler = async (
-    event: React.FocusEvent<HTMLInputElement>
-  ) => {
-    await trigger("email");
-    const value = event.target.value;
-    const { isDirty, invalid } = getFieldState("email");
-    if (isDirty && !invalid && value !== prevEnteredEmail) {
-      checkEmailAvailability(value);
-    }
-
-    if (isDirty && invalid && prevEnteredEmail) {
-      resetCheckEmailAvailability();
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetAuthState());
-    };
-  }, [dispatch]);
+    formErrors,
+    isValid,
+    loading,
+    error,
+    submitHandler,
+    emailAvailabilityStatus,
+    emailOnBlurHandler,
+  } = useRegister();
 
   return (
     <section>
@@ -77,7 +28,7 @@ const RegisterPage = () => {
               label="First Name"
               name="firstName"
               register={register}
-              error={errors.firstName?.message || ""}
+              error={formErrors.firstName?.message || ""}
               autoFocus
             />
 
@@ -85,7 +36,7 @@ const RegisterPage = () => {
               label="Last Name"
               name="lastName"
               register={register}
-              error={errors.lastName?.message || ""}
+              error={formErrors.lastName?.message || ""}
             />
 
             <Input
@@ -94,8 +45,8 @@ const RegisterPage = () => {
               register={register}
               onBlur={emailOnBlurHandler}
               error={
-                errors.email?.message
-                  ? errors.email?.message
+                formErrors.email?.message
+                  ? formErrors.email?.message
                   : emailAvailabilityStatus === "notAvailable"
                   ? "This email is already in use."
                   : emailAvailabilityStatus === "failed"
@@ -120,7 +71,7 @@ const RegisterPage = () => {
               name="password"
               type="password"
               register={register}
-              error={errors.password?.message || ""}
+              error={formErrors.password?.message || ""}
             />
 
             <Input
@@ -128,7 +79,7 @@ const RegisterPage = () => {
               name="confirmPassword"
               type="password"
               register={register}
-              error={errors.confirmPassword?.message || ""}
+              error={formErrors.confirmPassword?.message || ""}
             />
 
             <Button

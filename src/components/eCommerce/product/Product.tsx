@@ -33,6 +33,9 @@ const Product = ({
   } as TProduct);
 
   return (
+
+
+    
     <div className={product}>
       <div className={wishList} onClick={handelLikeToggle}>
         {isAddingWishlist ? (

@@ -13,7 +13,7 @@ const useWishlistPage = () => {
   const wishlistItems = useAppSelector((state) => state.wishlist.itemsId);
 
   useEffect(() => {
-    dispatch(actGetWishlist());
+    dispatch(actGetWishlist("productsFullInfo"));
 
     return () => {
       dispatch(wishlistCleanUp());
