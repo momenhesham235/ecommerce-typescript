@@ -1,13 +1,24 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { actAuthRegister, resetAuthState } from "@store/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, type TRegisterType } from "@utils";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 
 import { Heading } from "@components/common";
 import { Input } from "@components/forms";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row, Col, Spinner, Alert } from "react-bootstrap";
+import { registerSchema, ROUTES, type TRegisterType } from "@utils";
 
 const RegisterPage = () => {
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const { loading, error } = useAppSelector((state) => state.auth);
+
   const {
     checkEmailAvailability,
     emailAvailabilityStatus,
@@ -20,15 +31,19 @@ const RegisterPage = () => {
     handleSubmit,
     trigger,
     getFieldState,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
   } = useForm<TRegisterType>({
     mode: "onBlur",
     shouldFocusError: true,
     resolver: zodResolver(registerSchema),
   });
 
-  const submitHandler: SubmitHandler<TRegisterType> = (data) =>
-    console.log(data);
+  const submitHandler: SubmitHandler<TRegisterType> = async (data) => {
+    const { firstName, lastName, email, password } = data;
+    dispatch(actAuthRegister({ firstName, lastName, email, password }))
+      .unwrap()
+      .then(() => navigate(`${ROUTES.LOGIN}?msg=registration_successful`));
+  };
 
   const emailOnBlurHandler = async (
     event: React.FocusEvent<HTMLInputElement>
@@ -44,6 +59,12 @@ const RegisterPage = () => {
       resetCheckEmailAvailability();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [dispatch]);
 
   return (
     <section>
@@ -111,13 +132,27 @@ const RegisterPage = () => {
             />
 
             <Button
-              disabled={!isValid || isSubmitting}
+              disabled={!isValid || loading === "pending"}
               variant="info"
               type="submit"
               style={{ color: "white" }}
             >
-              {isSubmitting ? "Registering..." : "Register"}
+              {loading === "pending" ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="ms-2">Registering...</span>
+                </>
+              ) : (
+                "Register"
+              )}
             </Button>
+            {error && <Alert variant="danger mt-2"> {error} </Alert>}
           </Form>
         </Col>
       </Row>

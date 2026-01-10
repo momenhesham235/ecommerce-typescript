@@ -1,16 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { axiosErrorHandler } from "@utils";
-import type { TRegisterType } from "@utils";
+import { axiosErrorHandler, type TRegisterType } from "@utils";
 
 type TFormData = Required<Omit<TRegisterType, "confirmPassword">>;
 
 const actAuthRegister = createAsyncThunk(
   "auth/actAuthRegister",
-  async (data: TFormData, { rejectWithValue }) => {
+  async (formData: TFormData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/register", data);
-      return response.data;
+      const res = await axios.post("/register", formData);
+      return res.data;
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error));
     }

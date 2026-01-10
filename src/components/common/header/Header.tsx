@@ -1,12 +1,17 @@
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { authLogout } from "@store/auth/authSlice";
 import { NavLink } from "react-router-dom";
 import HeaderLeft from "@components/common/header/headerLeft/HeaderLeft";
 
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { headerContainer, headerLogo } = styles;
 
 import { ROUTES } from "@utils";
 const Header = () => {
+  const dispatch = useAppDispatch();
+  const { user, accessToken } = useAppSelector((state) => state.auth);
+
   return (
     <header>
       {/* Top Header */}
@@ -39,13 +44,38 @@ const Header = () => {
                 Categories
               </Nav.Link>
             </Nav>
+
             <Nav>
-              <Nav.Link as={NavLink} to={ROUTES.LOGIN}>
-                Login
-              </Nav.Link>
-              <Nav.Link as={NavLink} to={ROUTES.REGISTER}>
-                Register
-              </Nav.Link>
+              {!accessToken ? (
+                <>
+                  <Nav.Link as={NavLink} to={ROUTES.REGISTER}>
+                    Register
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to={ROUTES.LOGIN}>
+                    Login
+                  </Nav.Link>
+                </>
+              ) : (
+                <NavDropdown
+                  title={`Welcome ${user?.firstName} ${user?.lastName}`}
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item as={NavLink} to={ROUTES.PROFILE}>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to={ROUTES.ORDER}>
+                    Order
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    as={NavLink}
+                    to={ROUTES.LOGIN}
+                    onClick={() => dispatch(authLogout())}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

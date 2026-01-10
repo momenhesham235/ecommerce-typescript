@@ -7,7 +7,7 @@ interface IProductsBaseState {
 }
 
 export interface ICartState extends IProductsBaseState {
-  items: Record<number, number>;
+  items: Record<number, number>; // id: quantity => index signature
 }
 
 export interface IWishlistState extends IProductsBaseState {

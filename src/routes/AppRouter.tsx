@@ -13,13 +13,16 @@ const CategoriesPage = lazy(() => import("@pages/categories/CategoriesPage"));
 const ProductsPage = lazy(() => import("@pages/products/ProductsPage"));
 const CartPage = lazy(() => import("@pages/cart/CartPage"));
 const WishlistPage = lazy(() => import("@pages/wishlist/WishlistPage"));
+const ProfilePage = lazy(() => import("@pages/profile/ProfilePage"));
 import ErrorPage from "@pages/errorBoundary/ErrorBoundary";
 
 // components
 import { LottieHandler, PageSuspenseFallback } from "@components/feedback";
 
 import { ROUTES } from "@utils";
-import productsPrefixGuard from "./loaders/productsPrefixGuard";
+import productsPrefixGuard from "@routes/loaders/productsPrefixGuard";
+import ProtectedRoute from "@routes/ProtectedRoute";
+import GuestRoute from "@routes/GuestRoute";
 
 const router = createBrowserRouter(
   [
@@ -38,27 +41,12 @@ const router = createBrowserRouter(
       ),
       errorElement: <ErrorPage />,
       children: [
+        // 🌍 public routes
         {
           index: true,
           element: (
             <PageSuspenseFallback>
               <HomePage />
-            </PageSuspenseFallback>
-          ),
-        },
-        {
-          path: ROUTES.LOGIN,
-          element: (
-            <PageSuspenseFallback>
-              <LoginPage />
-            </PageSuspenseFallback>
-          ),
-        },
-        {
-          path: ROUTES.REGISTER,
-          element: (
-            <PageSuspenseFallback>
-              <RegisterPage />
             </PageSuspenseFallback>
           ),
         },
@@ -95,13 +83,51 @@ const router = createBrowserRouter(
             </PageSuspenseFallback>
           ),
         },
+
+        // 👤 guest routes
         {
-          path: ROUTES.WISHLIST,
-          element: (
-            <PageSuspenseFallback>
-              <WishlistPage />
-            </PageSuspenseFallback>
-          ),
+          element: <GuestRoute />,
+          children: [
+            {
+              path: ROUTES.LOGIN,
+              element: (
+                <PageSuspenseFallback>
+                  <LoginPage />
+                </PageSuspenseFallback>
+              ),
+            },
+            {
+              path: ROUTES.REGISTER,
+              element: (
+                <PageSuspenseFallback>
+                  <RegisterPage />
+                </PageSuspenseFallback>
+              ),
+            },
+          ],
+        },
+
+        // 🔒 protected routes
+        {
+          element: <ProtectedRoute />,
+          children: [
+            {
+              path: ROUTES.WISHLIST,
+              element: (
+                <PageSuspenseFallback>
+                  <WishlistPage />
+                </PageSuspenseFallback>
+              ),
+            },
+            {
+              path: ROUTES.PROFILE,
+              element: (
+                <PageSuspenseFallback>
+                  <ProfilePage />
+                </PageSuspenseFallback>
+              ),
+            },
+          ],
         },
       ],
     },
@@ -110,6 +136,7 @@ const router = createBrowserRouter(
     basename: "/ecommerce-typescript/",
   }
 );
+
 
 const AppRouter = () => <RouterProvider router={router} />;
 

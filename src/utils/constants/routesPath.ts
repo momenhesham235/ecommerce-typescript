@@ -7,6 +7,8 @@ const ROUTES = {
   PRODUCTS: "/categories/products/:prefix",
   CART: "/cart",
   WISHLIST: "/wishlist",
+  PROFILE: "/profile",
+  ORDER: "/order",
 };
 
 export default ROUTES;

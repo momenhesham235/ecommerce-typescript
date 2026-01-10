@@ -2,6 +2,8 @@
 import axiosErrorHandler from "@utils/func/axiosErrorHandler";
 
 // types
+import type { IAuthState } from "@utils/types/reduxType/IAuthState";
+import type { TUser } from "@utils/types/user";
 import type { TProduct } from "@utils/types/product";
 import type { TCategory } from "@utils/types/category";
 import type { TLoadingStatus } from "@utils/types/shared";
@@ -25,6 +27,8 @@ import { loginSchema } from "@utils/validation/loginSchema";
 import type { TLoginType } from "@utils/validation/loginSchema";
 
 export type {
+  IAuthState,
+  TUser,
   TProduct,
   TCategory,
   TLoadingStatus,
