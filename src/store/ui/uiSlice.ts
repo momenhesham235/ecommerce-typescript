@@ -20,7 +20,6 @@ const uiSlice = createSlice({
     },
     closeAuthModal: (state) => {
       state.authModalOpen = false;
-      state.redirectAfterLogin = null;
     },
 
     clearRedirectAfterLogin: (state) => {

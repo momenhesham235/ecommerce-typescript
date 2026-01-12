@@ -57,14 +57,7 @@ const LoginPage = () => {
             >
               {loading === "pending" ? (
                 <>
-                  <Spinner
-                    as="span"
-                    animation="grow"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                  <span className="visually-hidden">Loading...</span>
+                  <Spinner as="span" animation="grow" size="sm" /> loading.....
                 </>
               ) : (
                 "Login"

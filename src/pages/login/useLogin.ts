@@ -22,7 +22,7 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors: formErrors, isValid },
   } = useForm<TLoginType>({
-    mode: "onBlur",
+    mode: "onChange",
     shouldFocusError: true,
     resolver: zodResolver(loginSchema),
   });
@@ -45,6 +45,7 @@ const useLogin = () => {
       dispatch(resetAuthState());
     };
   }, [dispatch]);
+
   return {
     formErrors,
     isValid,

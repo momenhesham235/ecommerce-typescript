@@ -21,7 +21,7 @@ const AuthModal = () => {
         <Modal.Title>Login Required</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>You need to be logged in to continue this action </Modal.Body>
+      <Modal.Body>You need to be logged in to continue this action. </Modal.Body>
 
       <Modal.Footer>
         <Button

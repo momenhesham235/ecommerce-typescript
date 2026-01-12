@@ -28,7 +28,7 @@ const useRegister = () => {
     getFieldState,
     formState: { errors: formErrors, isValid },
   } = useForm<TRegisterType>({
-    mode: "onBlur",
+    mode: "onChange",
     shouldFocusError: true,
     resolver: zodResolver(registerSchema),
   });

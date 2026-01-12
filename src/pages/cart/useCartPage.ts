@@ -6,25 +6,16 @@ import {
   cartItemRemove,
   CartsCleanUp,
 } from "@store/cart/cartSlice";
+import { resetOrderStatus } from "@store/orders/ordersSlice";
 
-/**
- * @description useCartPage
- * @returns products, loading, error , changeQuantityHandler , removeItemHandler
- */
 const useCartPage = () => {
   const dispatch = useAppDispatch();
+
   const { items, productsFullInfo, loading, error } = useAppSelector(
     (state) => state.cart
   );
 
-  useEffect(() => {
-    const promise = dispatch(actGetProductsByItems());
-
-    return () => {
-      promise.abort();
-      dispatch(CartsCleanUp());
-    };
-  }, [dispatch]);
+  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
 
   const products = productsFullInfo.map((el) => ({
     ...el,
@@ -44,7 +35,24 @@ const useCartPage = () => {
     },
     [dispatch]
   );
-  return { products, loading, error, changeQuantityHandler, removeItemHandler };
+
+  useEffect(() => {
+    const promise = dispatch(actGetProductsByItems());
+
+    return () => {
+      promise.abort();
+      dispatch(CartsCleanUp());
+      dispatch(resetOrderStatus());
+    };
+  }, [dispatch]);
+  return {
+    products,
+    loading,
+    error,
+    placeOrderStatus,
+    changeQuantityHandler,
+    removeItemHandler,
+  };
 };
 
 export default useCartPage;

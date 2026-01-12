@@ -2,10 +2,11 @@ import { memo } from "react";
 
 import useProduct from "./hooks/useProduct";
 import { LikeFillIcon, LikeIcon } from "@assets";
+import ProductInfo from "../productInfo/ProductInfo";
 
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
-const { product, productImg, maximumNotice, wishList } = styles;
+const { maximumNotice, wishList } = styles;
 
 import type { TProduct } from "@utils";
 
@@ -18,7 +19,7 @@ const Product = ({
   quantity,
   isLiked,
 }: TProduct) => {
-  // Logic & Hooks
+  // hook useProduct
   const {
     isLoading,
     isAddingWishlist,
@@ -33,10 +34,7 @@ const Product = ({
   } as TProduct);
 
   return (
-
-
-    
-    <div className={product}>
+    <ProductInfo title={title} img={img} price={price}>
       <div className={wishList} onClick={handelLikeToggle}>
         {isAddingWishlist ? (
           <Spinner animation="border" size="sm" variant="primary" />
@@ -47,12 +45,6 @@ const Product = ({
         )}
       </div>
 
-      <div className={productImg}>
-        <img src={img} alt={title} />
-      </div>
-
-      <h2>{title}</h2>
-      <h3>{price.toFixed(2)} EGP</h3>
       <p className={maximumNotice}>
         {quantityReachedToMax
           ? "You reach to the limit"
@@ -72,7 +64,7 @@ const Product = ({
           "Add to cart"
         )}
       </Button>
-    </div>
+    </ProductInfo>
   );
 };
 

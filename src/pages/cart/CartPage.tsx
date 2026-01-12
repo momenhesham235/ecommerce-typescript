@@ -10,8 +10,14 @@ import { Button } from "react-bootstrap";
 import { ROUTES } from "@utils";
 
 const Cart = () => {
-  const { products, loading, error, changeQuantityHandler, removeItemHandler } =
-    useCartPage();
+  const {
+    products,
+    loading,
+    error,
+    placeOrderStatus,
+    changeQuantityHandler,
+    removeItemHandler,
+  } = useCartPage();
   return (
     <>
       <Heading title="Your Cart" />
@@ -25,6 +31,8 @@ const Cart = () => {
             />
             <CartSubtotalPrice products={products} />
           </>
+        ) : placeOrderStatus === "succeeded" ? (
+          <LottieHandler type="success" message="Order Placed Successfully!" />
         ) : (
           <>
             <LottieHandler type="empty" message="Your cart is empty" />

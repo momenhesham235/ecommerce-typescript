@@ -1,7 +1,7 @@
 import Lottie from "lottie-react";
-import { notFound, loading, error, empty } from "@assets";
+import { notFound, loading, error, empty, success } from "@assets";
 
-const lottieTypes = { notFound, loading, error, empty };
+const lottieTypes = { notFound, loading, error, empty, success };
 import style from "./style.module.css";
 const { animationLottie } = style;
 

@@ -3,10 +3,12 @@ import axiosErrorHandler from "@utils/func/axiosErrorHandler";
 
 // types
 import type { IAuthState } from "@utils/types/reduxType/IAuthState";
-import type { TUser } from "@utils/types/user";
-import type { TProduct } from "@utils/types/product";
-import type { TCategory } from "@utils/types/category";
-import type { TLoadingStatus } from "@utils/types/shared";
+import type { TUser } from "@utils/types/user.type";
+import type { TProduct } from "@utils/types/product.type";
+import type { TCategory } from "@utils/types/category.type";
+import type { TOrderItem } from "@utils/types/order.type";
+import type { TLoadingStatus } from "@utils/types/shared.type";
+// types -> Redux types
 import type {
   ICartState,
   IWishlistState,
@@ -14,6 +16,7 @@ import type {
 import type {
   TCategoriesState,
   TProductsState,
+  TOrderState,
 } from "@utils/types/reduxType/IEntityState";
 import { isString } from "@utils/types/guards";
 
@@ -31,11 +34,13 @@ export type {
   TUser,
   TProduct,
   TCategory,
+  TOrderItem,
   TLoadingStatus,
   ICartState,
   IWishlistState,
   TCategoriesState,
   TProductsState,
+  TOrderState,
   TRegisterType,
   TLoginType,
 };
