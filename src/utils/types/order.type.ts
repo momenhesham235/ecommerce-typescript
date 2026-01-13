@@ -1,8 +1,7 @@
 import type { TProduct } from "@utils";
 
-export type TOrderItem = {
+export type TOrder = {
   id: number;
-  userId: number;
   items: TProduct[];
   subtotal: number;
 };

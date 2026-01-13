@@ -3,17 +3,24 @@ import { lazy, Suspense } from "react";
 
 // layouts
 const MainLayout = lazy(() => import("@layouts/mainLayout/MainLayout"));
+const ProfileLayout = lazy(
+  () => import("@layouts/profileLayout/ProfileLayout")
+);
 
 // lazy pages
-const HomePage = lazy(() => import("@pages/home/HomePage"));
 const LoginPage = lazy(() => import("@pages/login/LoginPage"));
 const RegisterPage = lazy(() => import("@pages/register/RegisterPage"));
+
+const HomePage = lazy(() => import("@pages/home/HomePage"));
 const AboutUsPage = lazy(() => import("@pages/aboutUs/AboutUsPage"));
 const CategoriesPage = lazy(() => import("@pages/categories/CategoriesPage"));
 const ProductsPage = lazy(() => import("@pages/products/ProductsPage"));
 const CartPage = lazy(() => import("@pages/cart/CartPage"));
 const WishlistPage = lazy(() => import("@pages/wishlist/WishlistPage"));
-const ProfilePage = lazy(() => import("@pages/profile/ProfilePage"));
+
+const AccountPage = lazy(() => import("@pages/account/AccountPage"));
+const OrdersPage = lazy(() => import("@pages/orders/OrdersPage"));
+
 import ErrorPage from "@pages/errorBoundary/ErrorBoundary";
 
 // components
@@ -120,12 +127,30 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: ROUTES.PROFILE,
+              path: ROUTES.PROFILE.slice(1), // remove leading slash
               element: (
                 <PageSuspenseFallback>
-                  <ProfilePage />
+                  <ProfileLayout />
                 </PageSuspenseFallback>
               ),
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <PageSuspenseFallback>
+                      <AccountPage />
+                    </PageSuspenseFallback>
+                  ),
+                },
+                {
+                  path: "orders", // remove leading slash
+                  element: (
+                    <PageSuspenseFallback>
+                      <OrdersPage />
+                    </PageSuspenseFallback>
+                  ),
+                },
+              ],
             },
           ],
         },

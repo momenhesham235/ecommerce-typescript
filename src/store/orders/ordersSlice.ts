@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isString, type TOrderState } from "@utils";
-
 import actPlaceOrder from "./act/actPlaceOrder";
+import actGetOrders from "./act/actGetOrders";
+import { isString, type TOrderState } from "@utils";
 
 const initialState: TOrderState = {
   records: [],
@@ -19,21 +19,41 @@ const orderSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // place order
     builder.addCase(actPlaceOrder.pending, (state) => {
       state.loading = "pending";
       state.error = null;
     });
-    builder.addCase(actPlaceOrder.fulfilled, (state, action) => {
+    builder.addCase(actPlaceOrder.fulfilled, (state) => {
       state.loading = "succeeded";
-      state.records = action.payload;
     });
     builder.addCase(actPlaceOrder.rejected, (state, action) => {
       state.loading = "failed";
-      if (isString(action.payload)) state.error = action.payload;
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
+    });
+
+    // get orders
+    builder.addCase(actGetOrders.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(actGetOrders.fulfilled, (state, action) => {
+      state.loading = "succeeded";
+      state.records = action.payload;
+    });
+    builder.addCase(actGetOrders.rejected, (state, action) => {
+      state.loading = "failed";
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
     });
   },
 });
 
-export { actPlaceOrder };
+export { actPlaceOrder, actGetOrders };
+
 export const { resetOrderStatus } = orderSlice.actions;
+
 export default orderSlice.reducer;

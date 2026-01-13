@@ -1,4 +1,4 @@
-import type { TCategory, TProduct, TOrderItem, TLoadingStatus } from "@utils";
+import type { TCategory, TProduct, TOrder, TLoadingStatus } from "@utils";
 
 export type IEntityState<T> = {
   records: T[];
@@ -10,4 +10,4 @@ export type TCategoriesState = IEntityState<TCategory>;
 
 export type TProductsState = IEntityState<TProduct>;
 
-export type TOrderState = IEntityState<TOrderItem>;
+export type TOrderState = IEntityState<TOrder>;

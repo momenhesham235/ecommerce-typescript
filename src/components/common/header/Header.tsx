@@ -68,10 +68,13 @@ const Header = () => {
                   title={`Welcome ${user?.firstName} ${user?.lastName}`}
                   id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item as={NavLink} to={ROUTES.PROFILE}>
+                  <NavDropdown.Item as={NavLink} to={ROUTES.PROFILE} end>
                     Profile
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={NavLink} to={ROUTES.ORDER}>
+                  <NavDropdown.Item
+                    as={NavLink}
+                    to={`${ROUTES.PROFILE}/orders`}
+                  >
                     Order
                   </NavDropdown.Item>
                   <NavDropdown.Divider />

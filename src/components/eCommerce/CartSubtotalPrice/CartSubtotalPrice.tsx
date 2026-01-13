@@ -41,8 +41,9 @@ const CartSubtotalPrice = ({ products }: TCartSubtotalProps) => {
       .unwrap()
       .then(() => {
         dispatch(cartsCleanUpAfterPlaceOrder());
-        closeConfirmModal();
       });
+
+    closeConfirmModal();
   };
 
   return (

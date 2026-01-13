@@ -4,6 +4,7 @@ type ProductInfoProps = {
   title: string;
   img: string;
   price: number;
+  quantity?: number;
   direction?: "row" | "column";
   children?: React.ReactNode;
   style?: React.CSSProperties;
@@ -13,6 +14,7 @@ const ProductInfo = ({
   title,
   img,
   price,
+  quantity,
   direction = "row",
   children,
   style,
@@ -25,6 +27,8 @@ const ProductInfo = ({
       <div className={`${styles[`productInfo-${direction}`]}`}>
         <h2 title={title}>{title}</h2>
         <h3>{price.toFixed(2)} EGP</h3>
+        {quantity && <h3>Total Quantity: {quantity}</h3>}
+        {quantity && <h3>Total Price: {price * quantity}</h3>}
         {children}
       </div>
     </div>

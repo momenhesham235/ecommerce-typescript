@@ -1,14 +1,15 @@
 const ROUTES = {
   HOME: "/",
+  ABOUT: "/about",
+  PRODUCTS: "/categories/products/:prefix",
+  CATEGORIES: "/categories",
+  CART: "/cart",
+
   LOGIN: "/login",
   REGISTER: "/register",
-  ABOUT: "/about-us",
-  CATEGORIES: "/categories",
-  PRODUCTS: "/categories/products/:prefix",
-  CART: "/cart",
+
   WISHLIST: "/wishlist",
   PROFILE: "/profile",
-  ORDER: "/order",
 };
 
 export default ROUTES;

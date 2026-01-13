@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 
 import { Container } from "react-bootstrap";
 import { Footer, Header } from "@components/common";
+import { AuthModal } from "@components/auth";
 
 import styles from "./styles.module.css";
-import { AuthModal } from "@components/auth";
 const { container, wrapper } = styles;
 
 const MainLayout = () => {

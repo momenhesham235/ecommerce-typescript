@@ -17,8 +17,6 @@ const actGetWishlist = createAsyncThunk(
         { signal }
       );
 
-      console.log(userWishlist);
-
       if (!userWishlist.data.length) {
         return { data: [], dataType: "empty" };
       }

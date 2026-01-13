@@ -20,6 +20,7 @@
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@layouts": ["src/layouts/index"],
       "@utils/*": ["src/utils/*"],
       "@utils": ["src/utils/index"],
       "@services/*": ["src/services/*"]

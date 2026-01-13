@@ -2,6 +2,7 @@ import {
   CategorySkeleton,
   ProductSkeleton,
   CartSkeleton,
+  TableSkeleton,
 } from "@components/feedback/skeletons";
 import { LottieHandler } from "@components/feedback";
 import type { TLoadingStatus } from "@utils";
@@ -10,6 +11,7 @@ const skeletonsTypes = {
   category: CategorySkeleton,
   product: ProductSkeleton,
   cart: CartSkeleton,
+  table: TableSkeleton,
 };
 
 interface ILoadingProps {
