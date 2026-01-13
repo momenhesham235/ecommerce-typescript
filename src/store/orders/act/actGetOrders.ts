@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { axiosErrorHandler, type TOrderItem } from "@utils";
+import { axiosErrorHandler, type TOrder } from "@utils";
 import { type RootState } from "@store/store";
 
-type TResponse = TOrderItem[];
+type TResponse = TOrder[];
 
 const actGetOrders = createAsyncThunk(
   "orders/actGetOrders",
