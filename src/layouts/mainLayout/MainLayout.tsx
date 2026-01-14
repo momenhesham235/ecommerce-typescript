@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { Footer, Header } from "@components/common";
 import { AuthModal } from "@components/auth";
+import { ToastList } from "@components/feedback";
 
 import styles from "./styles.module.css";
 const { container, wrapper } = styles;
@@ -15,6 +16,8 @@ const MainLayout = () => {
 
       {/* Auth Modal */}
       <AuthModal />
+      {/* Toast */}
+      <ToastList />
 
       {/* Content */}
       <main className={wrapper}>

@@ -8,6 +8,7 @@ import type { TProduct } from "@utils/types/product.type";
 import type { TCategory } from "@utils/types/category.type";
 import type { TOrder } from "@utils/types/order.type";
 import type { TLoadingStatus } from "@utils/types/shared.type";
+import type { TToast } from "@utils/types/toast.type";
 // types -> Redux types
 import type {
   ICartState,
@@ -36,6 +37,7 @@ export type {
   TCategory,
   TOrder,
   TLoadingStatus,
+  TToast,
   ICartState,
   IWishlistState,
   TCategoriesState,

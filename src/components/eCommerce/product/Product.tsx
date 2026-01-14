@@ -31,6 +31,8 @@ const Product = ({
     id,
     max,
     quantity,
+    isLiked,
+    title,
   } as TProduct);
 
   return (
