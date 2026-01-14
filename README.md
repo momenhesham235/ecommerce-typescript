@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# React E-commerce Advanced Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**React + TypeScript + Redux + Axios + Toast Notifications + Protected/Guest Routes + Design Patterns**
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📂 Folder Structure
 
-## React Compiler
+src/
+├─ api/ # Axios API requests
+│ └─ axiosInstance.ts
+├─ assets/ # Images, icons, fonts, styles
+├─ components/ # Reusable components
+│ ├─ toast/
+│ │ ├─ ToastContainer.tsx
+│ │ └─ ToastItem.tsx
+│ └─ ...others
+├─ hooks/ # Custom hooks
+│ └─ useAuthAction.ts
+├─ pages/ # Page components
+│ ├─ Home.tsx
+│ ├─ Login.tsx
+│ └─ ...others
+├─ routes/ # React Router routes
+│ ├─ AppRouter.tsx
+│ ├─ ProtectedRoute.tsx
+│ └─ GuestRoute.tsx
+├─ store/ # Redux Toolkit
+│ ├─ index.ts # configureStore
+│ ├─ slices/
+│ │ ├─ cartSlice.ts
+│ │ ├─ wishlistSlice.ts
+│ │ └─ toastsSlice.ts
+│ └─ selectors/
+│ ├─ cartSelectors.ts
+│ └─ wishlistSelectors.ts
+├─ types/ # TypeScript types
+│ └─ index.ts
+├─ utils/ # Helpers, constants
+│ └─ index.ts
+├─ App.tsx
+└─ main.tsx 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚡ Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- ✅ **Redux Toolkit** with:
+  - Slices
+  - Selectors
+  - Persisted state (`redux-persist`)
+- ✅ **Axios** global instance for API requests
+- ✅ **Protected Routes** & **Guest Routes**
+- ✅ **Toast Notifications System**
+- ✅ **TypeScript** support
+- ✅ **React Design Patterns**:
+  - Compose Components
+  - Render Props
+  - Dynamic Components
+- ✅ **Responsive and reusable UI components**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+## 🛠️ Installation
+
+```bash
+git clone <repo-url>
+cd project
+npm install
+npm run dev
+
+🏗️ Redux Example
+
+Slice: toastsSlice.ts
+
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import type { TToast } from "@types";
+
+interface IToastState {
+  records: TToast[];
+}
+
+const initialState: IToastState = { records: [] };
+
+const toastSlice = createSlice({
+  name: "toasts",
+  initialState,
+  reducers: {
+    addToast: (state, action: PayloadAction<TToast>) => {
+      state.records.push({
+        id: nanoid(),
+        ...action.payload,
+      });
+    },
+    removeToast: (state, action: PayloadAction<string>) => {
+      state.records = state.records.filter((t) => t.id !== action.payload);
     },
   },
-])
-```
+});
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+export const { addToast, removeToast } = toastSlice.actions;
+export default toastSlice.reducer;
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
